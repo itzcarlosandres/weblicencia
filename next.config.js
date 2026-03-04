@@ -57,14 +57,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // ... tu configuración actual ...
-  typescript: {
-    ignoreBuildErrors: true, // Salta errores de tipos en el build
-  },
-  eslint: {
-    ignoreDuringBuilds: true, // Salta errores de linting en el build
-  },
-}
