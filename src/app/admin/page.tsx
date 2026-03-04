@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+export const dynamic = 'force-dynamic'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/auth'
 import { redirect } from 'next/navigation'
