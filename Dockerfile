@@ -1,6 +1,4 @@
-# Multi-stage build for optimized production image
 FROM node:20-alpine AS builder
-LABEL version="1.0.1"
 
 WORKDIR /app
 
