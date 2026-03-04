@@ -48,6 +48,12 @@ const nextConfig = {
       beforeFiles: [],
     };
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;

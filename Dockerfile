@@ -2,6 +2,17 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Build arguments for Easypanel
+ARG DATABASE_URL
+ARG NEXTAUTH_SECRET
+ARG NEXTAUTH_URL
+ARG NODE_ENV
+
+ENV DATABASE_URL=$DATABASE_URL
+ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+ENV NEXTAUTH_URL=$NEXTAUTH_URL
+ENV NODE_ENV=production
+
 # Install dependencies
 COPY package.json pnpm-lock.yaml* package-lock.json* ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile || npm install
