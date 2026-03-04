@@ -47,9 +47,9 @@ Thumbs.db
 /prisma/migrations
 
 # Docker
-.dockerignore
-Dockerfile
-docker-compose.yml
+#.dockerignore
+#Dockerfile
+#docker-compose.yml
 
 # Logs
 logs/
