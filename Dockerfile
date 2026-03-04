@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Install build essentials
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat openssl openssl-dev ca-certificates
 
 # Build arguments for Easypanel
 ARG DATABASE_URL
@@ -42,7 +42,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat openssl openssl-dev ca-certificates
 
 # Set production env
 ENV NODE_ENV=production
