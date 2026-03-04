@@ -14,6 +14,7 @@ ENV NEXTAUTH_URL=$NEXTAUTH_URL
 ENV NODE_ENV=production
 
 # Install dependencies
+RUN apk add --no-cache libc6-compat
 COPY package.json pnpm-lock.yaml* package-lock.json* ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile || npm install
 
@@ -32,6 +33,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Install only production dependencies
+RUN apk add --no-cache libc6-compat
 COPY package.json pnpm-lock.yaml* package-lock.json* ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile --production || npm install --production
 
