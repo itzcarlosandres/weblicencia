@@ -17,7 +17,7 @@ export async function TrendingProducts() {
     <section id="trending" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#02040f]">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h2 className="text-3xl font-black text-white uppercase tracking-tighter">
+          <h2 className="text-3xl font-bold text-white uppercase tracking-tighter">
             Ofertas <span className="text-accent">Destacadas</span>
           </h2>
         </div>
@@ -47,7 +47,7 @@ export async function TrendingProducts() {
                     {/* Dynamic Badge */}
                     {(product as any).badge && (
                       <div className="absolute top-2 left-2 z-10">
-                        <Badge className="bg-accent text-black border-none px-1.5 py-0.5 text-[7px] font-black uppercase tracking-widest rounded-md shadow-xl">
+                        <Badge className="bg-accent text-black border-none px-1.5 py-0.5 text-[7px] font-bold uppercase tracking-widest rounded-md shadow-xl">
                           {(product as any).badge}
                         </Badge>
                       </div>
@@ -76,16 +76,16 @@ export async function TrendingProducts() {
                           FROM USD {originalPrice}
                         </span>
                         <div className="flex items-center gap-3">
-                          <span className="text-lg font-black text-white">
+                          <span className="text-lg font-bold text-white">
                             {formatPrice(product.price)}
                           </span>
-                          <Badge className="bg-green-500/20 text-green-500 border-none px-1.5 py-0.5 text-[10px] font-black rounded-md">
+                          <Badge className="bg-green-500/20 text-green-500 border-none px-1.5 py-0.5 text-[10px] font-bold rounded-md">
                             -{discount}%
                           </Badge>
                         </div>
                       </div>
 
-                      <Button className="w-full bg-[#1e234a] group-hover:bg-accent text-white group-hover:text-black h-9 rounded-lg text-xs font-black uppercase tracking-widest gap-2 transition-all border-none pointer-events-none">
+                      <Button className="w-full bg-[#1e234a] group-hover:bg-accent text-white group-hover:text-black h-9 rounded-lg text-xs font-bold uppercase tracking-widest gap-2 transition-all border-none pointer-events-none">
                         <ShoppingCart className="w-3.5 h-3.5" />
                         Buy now
                       </Button>

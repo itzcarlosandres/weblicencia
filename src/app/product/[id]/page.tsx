@@ -47,13 +47,13 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             <Box className="w-10 h-10 text-white/20" />
           </div>
           <div className="space-y-2">
-            <h1 className="text-4xl font-black uppercase tracking-tighter">Activo No Encontrado</h1>
+            <h1 className="text-4xl font-bold uppercase tracking-tighter">Activo No Encontrado</h1>
             <p className="text-white/40 text-sm font-medium uppercase tracking-widest">
               El producto solicitado no existe en nuestra base de datos maestra.
             </p>
           </div>
           <Link href="/products" className="inline-block">
-            <Button className="bg-white text-black hover:bg-accent hover:text-white rounded-2xl h-14 px-10 font-black uppercase tracking-widest text-[10px]">
+            <Button className="bg-white text-black hover:bg-accent hover:text-white rounded-2xl h-14 px-10 font-bold uppercase tracking-widest text-[10px]">
               Volver al Catálogo
             </Button>
           </Link>
@@ -69,7 +69,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
     <div className="pt-32 pb-24 px-4 min-h-screen bg-[#050505] text-white">
       <div className="max-w-7xl mx-auto">
         {/* Navigation */}
-        <Link href="/products" className="group inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-accent transition-colors mb-12">
+        <Link href="/products" className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 hover:text-accent transition-colors mb-12">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Regresar a Operaciones
         </Link>
@@ -88,13 +88,13 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center space-y-4">
                   <Zap className="w-20 h-20 text-accent/20" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white/10">Vista Previa No Disponible</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/10">Vista Previa No Disponible</span>
                 </div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent" />
 
               <div className="absolute top-8 left-8">
-                <Badge className="bg-accent text-black border-none px-4 py-2 text-[9px] font-black uppercase tracking-widest rounded-full shadow-2xl">
+                <Badge className="bg-accent text-black border-none px-4 py-2 text-[9px] font-bold uppercase tracking-widest rounded-full shadow-2xl">
                   {(product as any).badge || 'Entrega Inmediata'}
                 </Badge>
               </div>
@@ -107,7 +107,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   <ShieldCheck className="w-5 h-5 text-accent" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[8px] font-black uppercase text-white/20 tracking-widest">Seguridad</span>
+                  <span className="text-[8px] font-bold uppercase text-white/20 tracking-widest">Seguridad</span>
                   <span className="text-[10px] font-bold uppercase">100% Original</span>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   <Zap className="w-5 h-5 text-accent" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[8px] font-black uppercase text-white/20 tracking-widest">Velocidad</span>
+                  <span className="text-[8px] font-bold uppercase text-white/20 tracking-widest">Velocidad</span>
                   <span className="text-[10px] font-bold uppercase">Envío Instantáneo</span>
                 </div>
               </div>
@@ -126,10 +126,10 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
           {/* Right: Asset Configuration */}
           <div className="flex flex-col">
             <div className="mb-4">
-              <span className="text-[10px] font-black text-accent uppercase tracking-[0.4em] ml-1">{(product as any).categoryName || (product as any).category}</span>
+              <span className="text-[10px] font-bold text-accent uppercase tracking-[0.4em] ml-1">{(product as any).categoryName || (product as any).category}</span>
             </div>
 
-            <h1 className="text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-none mb-8">
+            <h1 className="text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-8">
               {product.title}
             </h1>
 
@@ -139,14 +139,14 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-white/20">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/20">
                 Reseñas Verificadas (Gold Standard)
               </span>
             </div>
 
             <div className="space-y-8 mb-12 flex-1">
               <div>
-                <h3 className="text-[10px] font-black uppercase tracking-widest text-white/30 mb-4 ml-1">Manifiesto del Activo</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4 ml-1">Manifiesto del Activo</h3>
                 <p className="text-lg text-white/50 leading-relaxed font-medium">
                   {product.description}
                 </p>
@@ -154,12 +154,12 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
 
               <div className="grid grid-cols-2 gap-8 pt-8">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Valor de Adquisición</span>
-                  <div className="text-5xl font-black tracking-tighter">{formatPrice(product.price)}</div>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Valor de Adquisición</span>
+                  <div className="text-5xl font-bold tracking-tighter">{formatPrice(product.price)}</div>
                 </div>
                 <div className="space-y-1 text-right">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Reserva Disponible</span>
-                  <div className="text-2xl font-black text-white/60 tracking-tighter">{product.stock} Unidades</div>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">Reserva Disponible</span>
+                  <div className="text-2xl font-bold text-white/60 tracking-tighter">{product.stock} Unidades</div>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 ...product,
                 price: Number(product.price)
               }} />
-              <p className="text-center text-[9px] font-black text-white/10 uppercase tracking-[0.2em]">
+              <p className="text-center text-[9px] font-bold text-white/10 uppercase tracking-[0.2em]">
                 Transacción asegurada por cifrado bancario de 256 bits
               </p>
             </div>
@@ -183,28 +183,28 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
                 <Check className="w-6 h-6 text-accent" />
               </div>
-              <h4 className="text-[10px] font-black uppercase tracking-widest">Activación Garantizada</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest">Activación Garantizada</h4>
               <p className="text-xs text-white/30 leading-relaxed font-medium">Todas nuestras claves son verificadas antes del envío para asegurar un funcionamiento al 100%.</p>
             </div>
             <div className="space-y-4">
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-accent" />
               </div>
-              <h4 className="text-[10px] font-black uppercase tracking-widest">Soporte Maestro 24/7</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest">Soporte Maestro 24/7</h4>
               <p className="text-xs text-white/30 leading-relaxed font-medium">Nuestro equipo de ingenieros está disponible para asistirte en el proceso de instalación.</p>
             </div>
             <div className="space-y-4">
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
                 <Zap className="w-6 h-6 text-accent" />
               </div>
-              <h4 className="text-[10px] font-black uppercase tracking-widest">Descarga Directa</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest">Descarga Directa</h4>
               <p className="text-xs text-white/30 leading-relaxed font-medium">Accede a los enlaces oficiales de descarga inmediatamente después de confirmar tu pago.</p>
             </div>
             <div className="space-y-4">
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
                 <ShoppingCart className="w-6 h-6 text-accent" />
               </div>
-              <h4 className="text-[10px] font-black uppercase tracking-widest">Múltiples Pagos</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-widest">Múltiples Pagos</h4>
               <p className="text-xs text-white/30 leading-relaxed font-medium">Aceptamos todos los medios de pago nacionales e internacionales con total seguridad.</p>
             </div>
           </div>

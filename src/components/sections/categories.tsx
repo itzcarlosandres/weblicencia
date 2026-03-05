@@ -72,8 +72,8 @@ export function CategoriesSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <span className="text-accent font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Ecosistema Digital</span>
-          <h2 className="text-5xl font-black text-white leading-none tracking-tighter uppercase">
+          <span className="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Ecosistema Digital</span>
+          <h2 className="text-5xl font-bold text-white leading-none tracking-tighter uppercase">
             Explora por <span className="text-white/20">Categoría</span>
           </h2>
         </div>
@@ -95,7 +95,7 @@ export function CategoriesSection() {
                   <div className="text-white/40 group-hover:text-accent transition-all duration-500 transform group-hover:scale-110">
                     {category.icon}
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.1em] text-white/40 group-hover:text-white transition-colors px-2">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/40 group-hover:text-white transition-colors px-2">
                     {category.name}
                   </span>
                 </CardContent>

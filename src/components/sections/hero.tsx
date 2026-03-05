@@ -26,7 +26,7 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] text-white">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] text-white">
                 EL PODER <br />
                 DEL <span className="text-accent">SOFTWARE</span> <br />
                 INSTANTÁNEO
@@ -61,13 +61,13 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6">
               <Link href="/products">
-                <Button size="lg" className="h-16 px-10 rounded-none bg-white text-black hover:bg-accent hover:text-white font-black uppercase tracking-widest text-sm transition-all shadow-2xl shadow-white/10">
+                <Button size="lg" className="h-16 px-10 rounded-none bg-white text-black hover:bg-accent hover:text-white font-bold uppercase tracking-widest text-sm transition-all shadow-2xl shadow-white/10">
                   Explorar Ofertas
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
               <Link href="/auth/register">
-                <Button size="lg" variant="outline" className="h-16 px-10 rounded-none border-white/10 hover:border-accent/40 bg-white/5 backdrop-blur-md text-white font-black uppercase tracking-widest text-sm transition-all">
+                <Button size="lg" variant="outline" className="h-16 px-10 rounded-none border-white/10 hover:border-accent/40 bg-white/5 backdrop-blur-md text-white font-bold uppercase tracking-widest text-sm transition-all">
                   Únete a la Élite
                 </Button>
               </Link>
@@ -90,7 +90,7 @@ export function HeroSection() {
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                   <span className="text-[10px] font-extrabold uppercase tracking-widest text-black/50">Ventas en línea</span>
                 </div>
-                <p className="text-4xl font-black text-black tracking-tighter">542,102</p>
+                <p className="text-4xl font-bold text-black tracking-tighter">542,102</p>
                 <p className="text-xs font-bold text-accent uppercase tracking-wider">Licencias Despachadas</p>
               </div>
             </div>

@@ -37,10 +37,10 @@ export function TrustSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-24 flex flex-col items-center text-center">
-          <Badge variant="outline" className="mb-6 px-4 py-1.5 border-accent/30 text-accent font-black tracking-widest uppercase text-[10px] bg-accent/5 rounded-none">
+          <Badge variant="outline" className="mb-6 px-4 py-1.5 border-accent/30 text-accent font-bold tracking-widest uppercase text-[10px] bg-accent/5 rounded-none">
             Estándar de Seguridad Global
           </Badge>
-          <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tighter text-white">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 tracking-tighter text-white">
             Infraestructura de <span className="text-accent underline decoration-white/10 underline-offset-8">Confianza</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl font-medium leading-relaxed">
@@ -58,7 +58,7 @@ export function TrustSection() {
                     <Icon className={`h-7 w-7 ${feature.accent}`} />
                   </div>
                 </div>
-                <h3 className="text-xl font-black mb-4 text-white uppercase tracking-tight">{feature.title}</h3>
+                <h3 className="text-xl font-bold mb-4 text-white uppercase tracking-tight">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-medium">
                   {feature.description}
                 </p>
@@ -72,22 +72,22 @@ export function TrustSection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center items-center">
             <div className="space-y-2 group">
               <Lock className="w-8 h-8 text-white/20 mx-auto group-hover:text-accent transition-colors" />
-              <p className="text-3xl font-black text-white">PCI DSS</p>
+              <p className="text-3xl font-bold text-white">PCI DSS</p>
               <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Nivel de Seguridad</p>
             </div>
             <div className="space-y-2 group">
               <Globe className="w-8 h-8 text-white/20 mx-auto group-hover:text-accent transition-colors" />
-              <p className="text-3xl font-black text-white">124</p>
+              <p className="text-3xl font-bold text-white">124</p>
               <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Países Cubiertos</p>
             </div>
             <div className="space-y-2 group">
               <Award className="w-8 h-8 text-white/20 mx-auto group-hover:text-accent transition-colors" />
-              <p className="text-3xl font-black text-white">100%</p>
+              <p className="text-3xl font-bold text-white">100%</p>
               <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Originalidad</p>
             </div>
             <div className="space-y-2 group">
               <Heart className="w-8 h-8 text-white/20 mx-auto group-hover:text-accent transition-colors" />
-              <p className="text-3xl font-black text-white">A+</p>
+              <p className="text-3xl font-bold text-white">A+</p>
               <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Reputación VIP</p>
             </div>
           </div>

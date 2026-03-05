@@ -12,7 +12,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-accent rounded-xl flex items-center justify-center">
                 <Shield className="w-5 h-5 text-black fill-current" />
               </div>
-              <span className="font-black text-xl tracking-tighter text-white">WebLicencia</span>
+              <span className="font-bold text-xl tracking-tighter text-white">WebLicencia</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               La plataforma de élite para la adquisición de activos digitales, software profesional y entretenimiento de alta fidelidad.
@@ -28,7 +28,7 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="font-black text-sm uppercase tracking-[0.2em] text-white mb-8">Ecosistema</h4>
+            <h4 className="font-bold text-sm uppercase tracking-[0.2em] text-white mb-8">Ecosistema</h4>
             <ul className="space-y-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
               {['Licencias Pro', 'Códigos Digitales', 'Gift Cards VIP', 'Suscripciones'].map(item => (
                 <li key={item}>
@@ -43,7 +43,7 @@ export function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="font-black text-sm uppercase tracking-[0.2em] text-white mb-8">Asistencia</h4>
+            <h4 className="font-bold text-sm uppercase tracking-[0.2em] text-white mb-8">Asistencia</h4>
             <ul className="space-y-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
               {['Concierge Center', 'Canales VIP', 'Knowledge Base', 'SLA Status'].map(item => (
                 <li key={item}>
@@ -58,7 +58,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-black text-sm uppercase tracking-[0.2em] text-white mb-8">Corporativo</h4>
+            <h4 className="font-bold text-sm uppercase tracking-[0.2em] text-white mb-8">Corporativo</h4>
             <ul className="space-y-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
               {['Términos de Élite', 'Privacidad Blindada', 'Cookies Policy', 'Legal Notice'].map(item => (
                 <li key={item}>
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-green-500/50">Todos los sistemas operativos</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-green-500/50">Todos los sistemas operativos</span>
           </div>
         </div>
       </div>
