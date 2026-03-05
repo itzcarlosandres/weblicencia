@@ -3,12 +3,12 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Plus, Edit2, Trash2, Grid } from 'lucide-react'
 import { deleteCategory } from '../actions'
-import { CategoryForm } from '@/components/admin/category-form'
+import { CategoryForm } from '../../../components/admin/category-form'
 
 export const dynamic = 'force-dynamic'
 
 export default async function CategoriesPage() {
-    const categories = await prisma.category.findMany({
+    const categories = await (prisma as any).category.findMany({
         orderBy: { order: 'asc' }
     })
 
@@ -59,11 +59,8 @@ export default async function CategoriesPage() {
                                             </Button>
                                         </CategoryForm>
 
-                                        <form action={async () => {
-                                            'use server'
-                                            await deleteCategory(cat.id)
-                                        }}>
-                                            <Button size="icon" variant="ghost" className="text-white/10 hover:text-red-500 hover:bg-red-500/5 rounded-xl">
+                                        <form action={deleteCategory.bind(null, cat.id)}>
+                                            <Button size="icon" variant="ghost" type="submit" className="text-white/10 hover:text-red-500 hover:bg-red-500/5 rounded-xl">
                                                 <Trash2 className="w-4 h-4" />
                                             </Button>
                                         </form>

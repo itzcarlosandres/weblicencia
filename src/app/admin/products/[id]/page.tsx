@@ -23,7 +23,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
         redirect('/')
     }
 
-    const product = await prisma.product.findUnique({
+    const product = await (prisma.product as any).findUnique({
         where: { id: params.id }
     })
 

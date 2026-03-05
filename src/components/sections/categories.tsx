@@ -22,7 +22,7 @@ const defaultCategories = [
     color: 'from-blue-500/10 to-transparent'
   },
   {
-    name: 'Suscripciones',
+    name: 'Suscripcion',
     icon: <PlayCircle className="w-10 h-10" />,
     href: '/products?category=Suscripcion',
     color: 'from-red-500/10 to-transparent'
@@ -30,7 +30,7 @@ const defaultCategories = [
   {
     name: 'Gift Cards',
     icon: <CreditCard className="w-10 h-10" />,
-    href: '/products?category=GiftCards',
+    href: '/products?category=Gift Cards',
     color: 'from-orange-500/10 to-transparent'
   },
   {
@@ -42,18 +42,18 @@ const defaultCategories = [
   {
     name: 'AI Tools',
     icon: <Zap className="w-10 h-10" />,
-    href: '/products?category=AI',
+    href: '/products?category=AI Tools',
     color: 'from-yellow-500/10 to-transparent'
   },
   {
     name: 'Playstation',
-    icon: <Ghost className="w-10 h-10" />, // Placeholder icon
+    icon: <Ghost className="w-10 h-10" />,
     href: '/products?category=Playstation',
     color: 'from-blue-600/10 to-transparent'
   },
   {
     name: 'Steam',
-    icon: <MessageSquare className="w-10 h-10" />, // Placeholder icon
+    icon: <MessageSquare className="w-10 h-10" />,
     href: '/products?category=Steam',
     color: 'from-gray-500/10 to-transparent'
   },

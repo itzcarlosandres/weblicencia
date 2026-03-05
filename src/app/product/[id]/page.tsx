@@ -95,7 +95,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
 
               <div className="absolute top-8 left-8">
                 <Badge className="bg-accent text-black border-none px-4 py-2 text-[9px] font-black uppercase tracking-widest rounded-full shadow-2xl">
-                  {product.badge || 'Entrega Inmediata'}
+                  {(product as any).badge || 'Entrega Inmediata'}
                 </Badge>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
           {/* Right: Asset Configuration */}
           <div className="flex flex-col">
             <div className="mb-4">
-              <span className="text-[10px] font-black text-accent uppercase tracking-[0.4em] ml-1">{product.category}</span>
+              <span className="text-[10px] font-black text-accent uppercase tracking-[0.4em] ml-1">{(product as any).categoryName || (product as any).category}</span>
             </div>
 
             <h1 className="text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-none mb-8">

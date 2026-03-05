@@ -111,7 +111,7 @@ export async function deleteCategory(id: string) {
 export async function deleteProduct(id: string) {
     // En lugar de borrar físicamente (para mantener integridad de órdenes), 
     // lo marcamos como inactivo
-    await prisma.product.update({
+    await (prisma.product as any).update({
         where: { id },
         data: { active: false },
     })
@@ -138,7 +138,7 @@ export async function importLicenseKeys(csvData: string, productId?: string) {
                 key = parts[1]
                 if (!slug || !key) continue
 
-                const product = await prisma.product.findUnique({
+                const product = await (prisma.product as any).findUnique({
                     where: { slug }
                 })
                 if (product) targetProductId = product.id
