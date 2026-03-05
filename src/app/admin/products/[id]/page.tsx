@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { ProductForm } from '../_components/product-form'
+export const dynamic = 'force-dynamic'
 import { prisma } from '@/lib/prisma'
 import { notFound, redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
