@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Plus, Edit2, Trash2, Grid } from 'lucide-react'
 import { deleteCategory } from '../actions'
-import { CategoryForm } from '../../../components/admin/category-form'
+import { CategoryForm } from '@/components/admin/category-form'
 
 export const dynamic = 'force-dynamic'
 
