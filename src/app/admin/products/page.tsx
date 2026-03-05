@@ -107,7 +107,7 @@ export default async function AdminProductsPage() {
                           </div>
                         </td>
                         <td className="py-6 px-8 text-white/40 font-bold text-xs uppercase tracking-widest">
-                          {product.categoryName}
+                          {(product as any).categoryName || (product as any).category}
                         </td>
                         <td className="py-6 px-8">
                           <span className="text-lg font-black text-accent tracking-tighter">

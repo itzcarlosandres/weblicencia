@@ -23,20 +23,20 @@ const categoryIcons: Record<string, any> = {
   'Default': <Zap className="w-4 h-4" />
 }
 
-async function getProducts(category?: string) {
+async function getProducts(categoryName?: string) {
   return await prisma.product.findMany({
     where: {
       active: true,
-      ...(category ? { category } : {})
+      ...(categoryName ? { categoryName } : {})
     },
     orderBy: { createdAt: 'desc' }
   })
 }
 
 async function getCategories() {
-  const categories = await prisma.product.groupBy({
-    by: ['category'],
-    _count: true
+  const categories = await (prisma as any).category.findMany({
+    where: { active: true },
+    orderBy: { order: 'asc' }
   })
   return categories
 }
@@ -81,15 +81,15 @@ export default async function ProductsPage({
             </button>
           </Link>
           {categories.map((cat) => (
-            <Link key={cat.category} href={`/products?category=${cat.category}`}>
+            <Link key={cat.id} href={`/products?category=${cat.name}`}>
               <button className={cn(
                 "flex items-center gap-3 px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border",
-                searchParams.category === cat.category
+                searchParams.category === cat.name
                   ? "bg-white text-black border-white"
                   : "bg-white/5 text-white/40 border-white/5 hover:border-white/20 hover:bg-white/10"
               )}>
-                {categoryIcons[cat.category] || categoryIcons.Default}
-                {cat.category}
+                {categoryIcons[cat.name] || categoryIcons.Default}
+                {cat.name}
               </button>
             </Link>
           ))}
@@ -122,7 +122,7 @@ export default async function ProductsPage({
                         )}
                         <div className="absolute top-6 left-6">
                           <Badge className="bg-white text-black border-none px-3 py-1 text-[8px] font-black uppercase tracking-widest rounded-lg">
-                            {product.category}
+                            {(product as any).categoryName || (product as any).category}
                           </Badge>
                         </div>
                       </div>

@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 }
 
 export default async function NewProductPage() {
-    const categories = await prisma.category.findMany({
+    const categories = await (prisma as any).category.findMany({
         orderBy: { order: 'asc' }
     })
 
     return (
         <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
-                <ProductForm categories={categories} />
+                <ProductForm categories={categories as any[]} />
             </div>
         </div>
     )

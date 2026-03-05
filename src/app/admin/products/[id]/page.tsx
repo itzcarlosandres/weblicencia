@@ -27,7 +27,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
         where: { id: params.id }
     })
 
-    const categories = await prisma.category.findMany({
+    const categories = await (prisma as any).category.findMany({
         orderBy: { order: 'asc' }
     })
 
@@ -38,7 +38,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     return (
         <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
-                <ProductForm initialData={product} categories={categories} />
+                <ProductForm initialData={product} categories={categories as any[]} />
             </div>
         </div>
     )

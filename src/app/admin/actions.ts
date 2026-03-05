@@ -67,7 +67,7 @@ export async function upsertCategory(data: { id?: string, name: string, icon?: s
     try {
         const slug = slugify(data.name)
         if (data.id) {
-            await prisma.category.update({
+            await (prisma as any).category.update({
                 where: { id: data.id },
                 data: {
                     name: data.name,
@@ -78,7 +78,7 @@ export async function upsertCategory(data: { id?: string, name: string, icon?: s
                 }
             })
         } else {
-            await prisma.category.create({
+            await (prisma as any).category.create({
                 data: {
                     name: data.name,
                     slug,
@@ -98,7 +98,7 @@ export async function upsertCategory(data: { id?: string, name: string, icon?: s
 
 export async function deleteCategory(id: string) {
     try {
-        await prisma.category.delete({ where: { id } })
+        await (prisma as any).category.delete({ where: { id } })
         revalidatePath('/admin/categories')
         return { success: true }
     } catch (error: any) {
