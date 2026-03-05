@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import { Poppins } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { AuthProvider } from '@/components/auth-provider'
 import { Toaster } from '@/components/ui/toaster'
 import { ClientLayout } from '@/components/client-layout'
 
-const poppins = Poppins({
+const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-sans',
   weight: ['300', '400', '500', '600', '700', '800', '900'],
@@ -51,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-sans bg-[#050505]`}>
+      <body className={`${montserrat.variable} font-sans bg-[#050505]`}>
         <AuthProvider>
           <ClientLayout>
             {children}
