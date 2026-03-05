@@ -8,7 +8,7 @@ import { ClientLayout } from '@/components/client-layout'
 const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-sans',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['300', '400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
