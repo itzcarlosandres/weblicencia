@@ -11,7 +11,8 @@ const ProductSchema = z.object({
     slug: z.string().min(3, 'El slug es requerido'),
     description: z.string().min(10, 'La descripción debe ser más detallada'),
     price: z.coerce.number().positive('El precio debe ser positivo'),
-    category: z.string().min(1, 'La categoría es requerida'),
+    categoryName: z.string().min(1, 'La categoría es requerida'),
+    categoryId: z.string().optional(),
     stock: z.coerce.number().int().nonnegative(),
     image: z.string().optional(),
     badge: z.string().optional(),
@@ -24,34 +25,27 @@ export async function upsertProduct(data: z.infer<typeof ProductSchema>) {
         const { id, ...rest } = validated
         const cleanSlug = slugify(rest.slug)
 
+        const productData = {
+            title: rest.title,
+            slug: cleanSlug,
+            description: rest.description,
+            price: rest.price,
+            categoryName: rest.categoryName,
+            categoryId: rest.categoryId || null,
+            stock: rest.stock,
+            image: rest.image,
+            badge: rest.badge,
+            active: rest.active,
+        }
+
         if (id) {
             await (prisma.product.update as any)({
                 where: { id },
-                data: {
-                    title: rest.title,
-                    slug: cleanSlug,
-                    description: rest.description,
-                    price: rest.price,
-                    category: rest.category,
-                    stock: rest.stock,
-                    image: rest.image,
-                    badge: rest.badge,
-                    active: rest.active,
-                },
+                data: productData,
             })
         } else {
             await (prisma.product.create as any)({
-                data: {
-                    title: rest.title,
-                    slug: cleanSlug,
-                    description: rest.description,
-                    price: rest.price,
-                    category: rest.category,
-                    stock: rest.stock,
-                    image: rest.image,
-                    badge: rest.badge,
-                    active: rest.active,
-                },
+                data: productData,
             })
         }
 
@@ -66,6 +60,53 @@ export async function upsertProduct(data: z.infer<typeof ProductSchema>) {
         }
     }
 }
+
+// ... existing deleteProduct ...
+
+export async function upsertCategory(data: { id?: string, name: string, icon?: string, order?: number, active?: boolean }) {
+    try {
+        const slug = slugify(data.name)
+        if (data.id) {
+            await prisma.category.update({
+                where: { id: data.id },
+                data: {
+                    name: data.name,
+                    slug,
+                    icon: data.icon,
+                    order: data.order || 0,
+                    active: data.active ?? true
+                }
+            })
+        } else {
+            await prisma.category.create({
+                data: {
+                    name: data.name,
+                    slug,
+                    icon: data.icon,
+                    order: data.order || 0,
+                    active: data.active ?? true
+                }
+            })
+        }
+        revalidatePath('/admin/categories')
+        revalidatePath('/')
+        return { success: true }
+    } catch (error: any) {
+        return { success: false, error: error.message }
+    }
+}
+
+export async function deleteCategory(id: string) {
+    try {
+        await prisma.category.delete({ where: { id } })
+        revalidatePath('/admin/categories')
+        return { success: true }
+    } catch (error: any) {
+        return { success: false, error: error.message }
+    }
+}
+
+// Keep existing importLicenseKeys, deleteLicenseKey, updateLicenseKey ...
 
 export async function deleteProduct(id: string) {
     // En lugar de borrar físicamente (para mantener integridad de órdenes), 

@@ -13,12 +13,14 @@ import {
     Settings,
     Shield,
     ExternalLink,
-    ChevronRight
+    ChevronRight,
+    Grid
 } from 'lucide-react'
 
 const menuItems = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/products', label: 'Productos', icon: Package },
+    { href: '/admin/categories', label: 'Categorías', icon: Grid },
     { href: '/admin/keys', label: 'Licencias', icon: Key },
     { href: '/admin/orders', label: 'Pedidos', icon: ShoppingBag },
     { href: '/admin/users', label: 'Usuarios', icon: Users },

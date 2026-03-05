@@ -75,7 +75,9 @@ model Product {
   slug        String     @unique
   description String
   price       Float
-  category    String
+  categoryId  String?
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  categoryName String    @default("Software") // Fallback string category
   stock       Int        @default(0)
   image       String?
   badge       String?
@@ -87,9 +89,25 @@ model Product {
   licenseKeys LicenseKey[]
   orderItems  OrderItem[]
 
-  @@index([category])
+  @@index([categoryId])
   @@index([active])
   @@map("products")
+}
+
+// Category model
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  icon      String?   // Icon name or emoji
+  active    Boolean   @default(true)
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  products  Product[]
+
+  @@map("categories")
 }
 
 // License Key model

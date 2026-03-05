@@ -23,7 +23,8 @@ const ProductSchema = z.object({
     slug: z.string().min(3, 'El slug es requerido'),
     description: z.string().min(10, 'La descripción debe ser más detallada'),
     price: z.coerce.number().positive('El precio debe ser positivo'),
-    category: z.string().min(1, 'La categoría es requerida'),
+    categoryName: z.string().min(1, 'La categoría es requerida'),
+    categoryId: z.string().optional(),
     stock: z.coerce.number().int().nonnegative(),
     image: z.string().optional(),
     badge: z.string().optional(),
@@ -34,9 +35,10 @@ type ProductFormValues = z.infer<typeof ProductSchema>
 
 interface ProductFormProps {
     initialData?: any
+    categories: any[]
 }
 
-export function ProductForm({ initialData }: ProductFormProps) {
+export function ProductForm({ initialData, categories }: ProductFormProps) {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -172,8 +174,23 @@ export function ProductForm({ initialData }: ProductFormProps) {
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Clasificación / Categoría</Label>
-                                    <Input {...register('category')} placeholder="Sistemas Operativos" className="bg-white/[0.03] border-white/10 h-14 rounded-2xl px-6 focus:border-accent/50 transition-all font-bold" />
-                                    {errors.category && <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mt-2 ml-1">{errors.category.message}</p>}
+                                    <select
+                                        {...register('categoryId')}
+                                        className="w-full bg-white/[0.03] border border-white/10 h-14 rounded-2xl px-6 focus:border-accent/50 transition-all font-bold text-white outline-none appearance-none"
+                                        onChange={(e) => {
+                                            const cat = categories.find(c => c.id === e.target.value)
+                                            if (cat) setValue('categoryName', cat.name)
+                                        }}
+                                    >
+                                        <option value="" className="bg-[#050505]">Seleccionar Categoría</option>
+                                        {categories.map((cat) => (
+                                            <option key={cat.id} value={cat.id} className="bg-[#050505]">
+                                                {cat.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input type="hidden" {...register('categoryName')} />
+                                    {errors.categoryId && <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mt-2 ml-1">{errors.categoryId.message}</p>}
                                 </div>
                             </div>
 
