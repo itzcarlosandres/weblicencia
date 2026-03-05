@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 const categoryIcons: Record<string, any> = {
   'Software': <Monitor className="w-4 h-4" />,
   'Juegos': <Gamepad2 className="w-4 h-4" />,
-  'Streaming': <PlayCircle className="w-4 h-4" />,
-  'Keys': <Key className="w-4 h-4" />,
+  'Suscripcion': <PlayCircle className="w-4 h-4" />,
+  'Gift Cards': <Key className="w-4 h-4" />,
   'Default': <Zap className="w-4 h-4" />
 }
 
