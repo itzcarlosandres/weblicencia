@@ -67,39 +67,23 @@ const defaultCategories = [
 
 export function CategoriesSection() {
   return (
-    <section id="categories" className="py-24 bg-[#050505] relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
-
+    <section id="categories" className="py-20 bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
-          <span className="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Ecosistema Digital</span>
-          <h2 className="text-5xl font-bold text-white leading-none tracking-tighter uppercase">
-            Explora por <span className="text-white/20">Categoría</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 px-1">
-          {defaultCategories.map((category, idx) => (
+        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-16">
+          {defaultCategories.slice(0, 6).map((category, idx) => (
             <Link
               key={idx}
               href={category.href}
-              className="group block"
+              className="group flex flex-col items-center space-y-4"
             >
-              <Card className="relative aspect-square overflow-hidden border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 rounded-[2rem] group-hover:-translate-y-1">
-                <div className={cn(
-                  "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500",
-                  category.color
-                )} />
-
-                <CardContent className="p-0 h-full flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="text-white/40 group-hover:text-accent transition-all duration-500 transform group-hover:scale-110">
-                    {category.icon}
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/40 group-hover:text-white transition-colors px-2">
-                    {category.name}
-                  </span>
-                </CardContent>
-              </Card>
+              <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/5 transition-all duration-500 group-hover:bg-accent group-hover:border-accent group-hover:shadow-[0_0_25px_rgba(0,123,255,0.4)] group-hover:-translate-y-2">
+                <div className="text-white/40 group-hover:text-white transition-colors duration-500 transform scale-75 md:scale-90 group-hover:scale-100">
+                  {category.icon}
+                </div>
+              </div>
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-white/40 group-hover:text-white transition-colors duration-500 text-center">
+                {category.name}
+              </span>
             </Link>
           ))}
         </div>

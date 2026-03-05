@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
-import { ShoppingCart, User, LogOut, Menu, Shield, Box, Zap, Key, Monitor, Database } from 'lucide-react'
+import { ShoppingCart, User, LogOut, Menu, Shield, Box, Zap, Key, Monitor, Database, Search } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -48,6 +48,20 @@ export function Navbar() {
               <span className="text-[9px] font-bold text-accent uppercase tracking-[0.3em] leading-none mt-1">Digital Assets</span>
             </div>
           </Link>
+
+          {/* Central Search Bar */}
+          <div className="hidden lg:flex flex-1 max-w-md mx-8">
+            <div className="relative w-full group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-accent transition-transform group-focus-within:scale-110" />
+              </div>
+              <input
+                type="text"
+                placeholder="Buscar activos digitales..."
+                className="block w-full pl-11 pr-4 py-3 bg-white/[0.03] border border-white/5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-white placeholder:text-white/20 focus:outline-none focus:ring-1 focus:ring-accent/40 focus:bg-white/[0.05] transition-all"
+              />
+            </div>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center bg-white/[0.03] border border-white/5 rounded-2xl px-2 py-1.5 backdrop-blur-md">
