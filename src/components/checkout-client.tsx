@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, CreditCard, Wallet, Lock, ShieldCheck, Zap, Star, Check, Loader2, Landmark, Trash2, Plus, Minus } from 'lucide-react'
+import { ArrowLeft, CreditCard, Wallet, Lock, ShieldCheck, Zap, Star, Check, Loader2, Landmark, Trash2, Plus, Minus, Bitcoin } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useCart } from '@/hooks/use-cart'
@@ -17,7 +17,7 @@ export function CheckoutClient() {
     const { cart, subtotal, isLoaded, clearCart, removeFromCart, updateQuantity } = useCart()
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
-    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'manual'>('manual')
+    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'manual' | 'mercadopago' | 'coinpal'>('manual')
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -70,6 +70,14 @@ export function CheckoutClient() {
             })
 
             if (response.ok) {
+                const result = await response.json()
+
+                if (result.redirectUrl) {
+                    // Redirect to payment gateway if available
+                    window.location.href = result.redirectUrl
+                    return
+                }
+
                 setSuccess(true)
                 clearCart()
                 setTimeout(() => {
@@ -172,34 +180,47 @@ export function CheckoutClient() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="p-10 space-y-10">
-                                <div className="grid md:grid-cols-3 gap-6">
+                                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                                     <label className="relative group cursor-pointer">
                                         <input type="radio" name="payment" value="manual" checked={paymentMethod === 'manual'} onChange={() => setPaymentMethod('manual')} className="peer sr-only" />
                                         <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-accent peer-checked:bg-accent/5 transition-all flex flex-col items-center text-center gap-4">
                                             <Landmark className="w-8 h-8 text-white/20 group-hover:text-accent group-peer-checked:text-accent" />
                                             <div className="flex flex-col">
-                                                <span className="text-[10px] font-bold uppercase tracking-widest text-white">Transferencia</span>
-                                                <span className="text-[8px] font-black uppercase text-white/20">Pago Manual / Admin</span>
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-white">Manual</span>
+                                                <span className="text-[8px] font-black uppercase text-white/20">Transferencia</span>
                                             </div>
                                         </div>
                                     </label>
-                                    <label className="relative group cursor-pointer">
-                                        <input type="radio" name="payment" value="stripe" checked={paymentMethod === 'stripe'} onChange={() => setPaymentMethod('stripe')} className="peer sr-only" />
-                                        <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-accent peer-checked:bg-accent/5 transition-all flex flex-col items-center text-center gap-4">
-                                            <CreditCard className="w-8 h-8 text-white/20 group-hover:text-accent group-peer-checked:text-accent" />
-                                            <div className="flex flex-col">
-                                                <span className="text-[10px] font-bold uppercase tracking-widest text-white">Tarjeta</span>
-                                                <span className="text-[8px] font-black uppercase text-white/20">Procesamiento Stripe</span>
-                                            </div>
-                                        </div>
-                                    </label>
+
                                     <label className="relative group cursor-pointer">
                                         <input type="radio" name="payment" value="paypal" checked={paymentMethod === 'paypal'} onChange={() => setPaymentMethod('paypal')} className="peer sr-only" />
-                                        <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-accent peer-checked:bg-accent/5 transition-all flex flex-col items-center text-center gap-4">
-                                            <Wallet className="w-8 h-8 text-white/20 group-hover:text-accent group-peer-checked:text-accent" />
+                                        <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-blue-400 peer-checked:bg-blue-400/5 transition-all flex flex-col items-center text-center gap-4">
+                                            <Wallet className="w-8 h-8 text-white/20 group-hover:text-blue-400 group-peer-checked:text-blue-400" />
                                             <div className="flex flex-col">
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-white">PayPal</span>
-                                                <span className="text-[8px] font-black uppercase text-white/20">Billetera Digital</span>
+                                                <span className="text-[8px] font-black uppercase text-white/20">Billetera</span>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <label className="relative group cursor-pointer">
+                                        <input type="radio" name="payment" value="mercadopago" checked={paymentMethod === 'mercadopago'} onChange={() => setPaymentMethod('mercadopago')} className="peer sr-only" />
+                                        <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-sky-400 peer-checked:bg-sky-400/5 transition-all flex flex-col items-center text-center gap-4">
+                                            <CreditCard className="w-8 h-8 text-white/20 group-hover:text-sky-400 group-peer-checked:text-sky-400" />
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-white">MercadoPago</span>
+                                                <span className="text-[8px] font-black uppercase text-white/20">Tarjetas / Dinero</span>
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                    <label className="relative group cursor-pointer">
+                                        <input type="radio" name="payment" value="coinpal" checked={paymentMethod === 'coinpal'} onChange={() => setPaymentMethod('coinpal')} className="peer sr-only" />
+                                        <div className="h-full p-6 border border-white/5 rounded-3xl bg-white/[0.01] peer-checked:border-orange-500 peer-checked:bg-orange-500/5 transition-all flex flex-col items-center text-center gap-4">
+                                            <Bitcoin className="w-8 h-8 text-white/20 group-hover:text-orange-500 group-peer-checked:text-orange-500" />
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-white">CoinPal</span>
+                                                <span className="text-[8px] font-black uppercase text-white/20">Crypto Gateway</span>
                                             </div>
                                         </div>
                                     </label>

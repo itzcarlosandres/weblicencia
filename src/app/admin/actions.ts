@@ -207,7 +207,17 @@ export async function updateLicenseKey(id: string, data: { key?: string, status?
         return { success: false, error: error.message }
     }
 }
-export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?: string, heroOffersFrom?: string, heroTitleSize?: string }) {
+export async function updateAppConfig(data: {
+    heroTitle?: string,
+    heroSubtitle?: string,
+    heroOffersFrom?: string,
+    heroTitleSize?: string,
+    paypalClientId?: string | null,
+    paypalSecret?: string | null,
+    mercadopagoAccessToken?: string | null,
+    coinpalApiKey?: string | null,
+    coinpalMerchantId?: string | null
+}) {
     try {
         await (prisma as any).appConfig.upsert({
             where: { id: 'global' },

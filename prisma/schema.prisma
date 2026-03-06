@@ -192,6 +192,14 @@ model AppConfig {
   heroSubtitle   String   @default("INFRAESTRUCTURA PREMIUM")
   heroOffersFrom String   @default("29.99")
   heroTitleSize  String   @default("8xl") // "7xl", "8xl", "9xl"
+  
+  // Payment Config
+  paypalClientId      String?
+  paypalSecret        String?
+  mercadopagoAccessToken String?
+  coinpalApiKey      String?
+  coinpalMerchantId  String?
+
   updatedAt      DateTime @updatedAt
 
   @@map("app_configs")

@@ -8,6 +8,11 @@ export async function POST(request: NextRequest) {
         const session = await getServerSession(authOptions)
         const { items, total, paymentMethod, customerInfo } = await request.json()
 
+        // Fetch Config to get Payment Keys
+        const config = await (prisma as any).appConfig.findUnique({
+            where: { id: 'global' }
+        })
+
         // Validate data
         if (!items || items.length === 0 || !total) {
             return NextResponse.json({ message: 'El carrito está vacío' }, { status: 400 })
@@ -59,9 +64,23 @@ export async function POST(request: NextRequest) {
             }
         })
 
+        // Generate Payment Response based on Provider
+        let redirectUrl = null
+
+        if (paymentMethod === 'paypal' && config?.paypalClientId) {
+            // Here you would normally integrate the PayPal SDK
+            // For now we assume the client handle the return
+            redirectUrl = `/api/payments/paypal/create?orderId=${order.id}`
+        } else if (paymentMethod === 'mercadopago' && config?.mercadopagoAccessToken) {
+            redirectUrl = `/api/payments/mercadopago/create?orderId=${order.id}`
+        } else if (paymentMethod === 'coinpal' && config?.coinpalApiKey) {
+            redirectUrl = `/api/payments/coinpal/create?orderId=${order.id}`
+        }
+
         return NextResponse.json({
             message: 'Orden creada exitosamente',
-            orderId: order.id
+            orderId: order.id,
+            redirectUrl
         }, { status: 201 })
 
     } catch (error) {
