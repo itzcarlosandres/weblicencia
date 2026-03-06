@@ -205,7 +205,7 @@ export async function updateLicenseKey(id: string, data: { key?: string, status?
         return { success: false, error: error.message }
     }
 }
-export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?: string, heroOffersFrom?: string }) {
+export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?: string, heroOffersFrom?: string, heroTitleSize?: string }) {
     try {
         await (prisma as any).appConfig.upsert({
             where: { id: 'global' },
@@ -215,6 +215,7 @@ export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?:
                 heroTitle: data.heroTitle || 'EL ESTÁNDAR DE ÉLITE EN LICENCIAS DIGITALES',
                 heroSubtitle: data.heroSubtitle || 'INFRAESTRUCTURA PREMIUM',
                 heroOffersFrom: data.heroOffersFrom || '29.99',
+                heroTitleSize: data.heroTitleSize || '8xl',
                 ...data
             }
         })

@@ -13,6 +13,7 @@ interface SettingsClientProps {
         heroTitle: string
         heroSubtitle: string
         heroOffersFrom: string
+        heroTitleSize: string
     } | null
 }
 
@@ -22,7 +23,8 @@ export function SettingsClient({ initialConfig }: SettingsClientProps) {
     const [config, setConfig] = useState({
         heroTitle: initialConfig?.heroTitle || 'EL ESTÁNDAR DE ÉLITE EN LICENCIAS DIGITALES',
         heroSubtitle: initialConfig?.heroSubtitle || 'INFRAESTRUCTURA PREMIUM',
-        heroOffersFrom: initialConfig?.heroOffersFrom || '29.99'
+        heroOffersFrom: initialConfig?.heroOffersFrom || '29.99',
+        heroTitleSize: initialConfig?.heroTitleSize || '8xl'
     })
 
     const handleSaveHero = async () => {
@@ -91,6 +93,20 @@ export function SettingsClient({ initialConfig }: SettingsClientProps) {
                                     className="bg-white/[0.03] border-white/10 h-16 rounded-2xl pl-10 pr-6 focus:border-accent/50 transition-all font-mono"
                                 />
                             </div>
+                        </div>
+
+                        <div className="space-y-3">
+                            <Label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Escala del Título (Size)</Label>
+                            <select
+                                value={config.heroTitleSize}
+                                onChange={(e) => setConfig({ ...config, heroTitleSize: e.target.value })}
+                                className="w-full bg-white/[0.03] border border-white/10 h-16 rounded-2xl px-6 focus:border-accent/50 transition-all font-bold text-white uppercase outline-none appearance-none"
+                            >
+                                <option value="6xl" className="bg-black text-white">Pequeño (6XL)</option>
+                                <option value="7xl" className="bg-black text-white">Normal (7XL)</option>
+                                <option value="8xl" className="bg-black text-white">Grande (8XL)</option>
+                                <option value="9xl" className="bg-black text-white">Extra Grande (9XL)</option>
+                            </select>
                         </div>
                     </div>
 

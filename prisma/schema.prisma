@@ -191,6 +191,7 @@ model AppConfig {
   heroTitle      String   @default("EL ESTÁNDAR DE ÉLITE EN LICENCIAS DIGITALES")
   heroSubtitle   String   @default("INFRAESTRUCTURA PREMIUM")
   heroOffersFrom String   @default("29.99")
+  heroTitleSize  String   @default("8xl") // "7xl", "8xl", "9xl"
   updatedAt      DateTime @updatedAt
 
   @@map("app_configs")

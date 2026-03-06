@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight, ShieldCheck, Sparkles, Zap, Timer } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface HeroProps {
   config?: {
     heroTitle: string
     heroSubtitle: string
     heroOffersFrom: string
+    heroTitleSize: string
   } | null
 }
 
@@ -17,6 +19,18 @@ export function HeroSection({ config }: HeroProps) {
   const title = config?.heroTitle || "EXPLORA EL ADN DIGITAL"
   const subtitle = config?.heroSubtitle || "Adquiere licencias de software y códigos de juegos con seguridad de grado gubernamental. Entrega instantánea 24/7."
   const offersFrom = config?.heroOffersFrom || "4.99"
+  const titleSize = config?.heroTitleSize || "8xl"
+
+  // Map to Tailwind classes
+  const sizeMap: { [key: string]: string } = {
+    '6xl': 'md:text-6xl',
+    '7xl': 'md:text-7xl',
+    '8xl': 'md:text-8xl',
+    '9xl': 'md:text-9xl'
+  }
+
+  const sizeClass = sizeMap[titleSize] || 'md:text-8xl'
+
   return (
     <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background">
       {/* Dynamic Background */}
@@ -34,7 +48,7 @@ export function HeroSection({ config }: HeroProps) {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.85] text-white uppercase italic">
+              <h1 className={cn("text-6xl font-black tracking-tighter leading-[0.85] text-white uppercase italic", sizeClass)}>
                 {title.split(' ').slice(0, -1).join(' ')} <br />
                 <span className="text-accent">{title.split(' ').slice(-1)}</span>
               </h1>

@@ -6,15 +6,15 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, CreditCard, Wallet, Lock, ShieldCheck, Zap, Star, Check, Loader2, Landmark } from 'lucide-react'
+import { ArrowLeft, CreditCard, Wallet, Lock, ShieldCheck, Zap, Star, Check, Loader2, Landmark, Trash2, Plus, Minus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useCart } from '@/hooks/use-cart'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, cn } from '@/lib/utils'
 
 export function CheckoutClient() {
     const router = useRouter()
-    const { cart, subtotal, isLoaded, clearCart } = useCart()
+    const { cart, subtotal, isLoaded, clearCart, removeFromCart, updateQuantity } = useCart()
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'manual'>('manual')
@@ -236,14 +236,31 @@ export function CheckoutClient() {
                                     <CardDescription className="text-[9px] font-black uppercase tracking-widest text-white/20">Resumen en tiempo real</CardDescription>
                                 </CardHeader>
                                 <CardContent className="p-8 space-y-6">
-                                    <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                                    <div className="space-y-4 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                                         {cart.map((item) => (
-                                            <div key={item.id} className="flex justify-between items-start gap-4 py-2">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[10px] font-black text-white uppercase tracking-tight line-clamp-1">{item.title}</span>
-                                                    <span className="text-[9px] font-bold text-white/30">Cant: {item.quantity}</span>
+                                            <div key={item.id} className="group p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-accent/20 transition-all space-y-3">
+                                                <div className="flex justify-between items-start gap-4">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[10px] font-black text-white uppercase tracking-tight line-clamp-1">{item.title}</span>
+                                                        <span className="text-[9px] font-bold text-accent uppercase tracking-widest mt-1">${item.price.toFixed(2)} / ud</span>
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeFromCart(item.id)}
+                                                        className="p-2 text-white/20 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                                                    >
+                                                        <Trash2 className="w-3.5 h-3.5" />
+                                                    </button>
                                                 </div>
-                                                <span className="text-xs font-bold text-white">${(item.price * item.quantity).toFixed(2)}</span>
+
+                                                <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                                                    <div className="flex items-center gap-2 bg-black/40 p-1 rounded-xl border border-white/5">
+                                                        <button type="button" onClick={() => updateQuantity(item.id, -1)} className="w-6 h-6 flex items-center justify-center hover:bg-white/5 text-white/40 rounded-lg"><Minus className="w-2.5 h-2.5" /></button>
+                                                        <span className="text-[10px] font-bold text-white min-w-[12px] text-center">{item.quantity}</span>
+                                                        <button type="button" onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 flex items-center justify-center hover:bg-white/5 text-white/40 rounded-lg"><Plus className="w-2.5 h-2.5" /></button>
+                                                    </div>
+                                                    <span className="text-xs font-bold text-white">${(item.price * item.quantity).toFixed(2)}</span>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>

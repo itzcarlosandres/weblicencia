@@ -59,10 +59,10 @@ export function useCart() {
         setCart((prev) => prev.filter((item) => item.id !== id))
     }
 
-    const updateQuantity = (id: string, quantity: number) => {
+    const updateQuantity = (id: string, delta: number) => {
         setCart((prev) =>
             prev.map((item) =>
-                item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+                item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
             )
         )
     }
