@@ -114,6 +114,24 @@ export default async function AdminDashboardPage() {
               </Link>
             </CardContent>
           </Card>
+
+          <Card className="hover:border-accent/40 hover:bg-white/[0.04] transition-all duration-500 group relative overflow-hidden border-white/5 bg-white/[0.02] backdrop-blur-3xl">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-yellow-500/10 transition-colors" />
+            <CardHeader>
+              <div className="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Settings className="w-6 h-6 text-yellow-500" />
+              </div>
+              <CardTitle className="text-xl font-black uppercase tracking-tight">Configuración</CardTitle>
+              <CardDescription className="text-xs font-medium uppercase tracking-widest opacity-50">Ajustes Globales & Hero</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/admin/settings">
+                <Button variant="outline" className="w-full h-12 border-white/10 hover:border-accent/40 text-[10px] font-black uppercase tracking-widest bg-white/5 !text-white transition-all">
+                  Panel de Preferencias
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Stats con diseño Premium */}

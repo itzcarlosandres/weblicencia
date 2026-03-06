@@ -193,13 +193,15 @@ export async function deleteLicenseKey(id: string) {
     }
 }
 
-export async function updateLicenseKey(id: string, data: { key?: string, status?: string }) {
+export async function updateLicenseKey(id: string, data: { key?: string, status?: string, orderId?: string | null }) {
     try {
         await prisma.licenseKey.update({
             where: { id },
             data
         })
         revalidatePath('/admin/keys')
+        revalidatePath('/admin/orders')
+        revalidatePath('/dashboard/orders')
         return { success: true }
     } catch (error: any) {
         return { success: false, error: error.message }
@@ -224,6 +226,20 @@ export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?:
         return { success: true }
     } catch (error: any) {
         console.error('Error updating config:', error)
+        return { success: false, error: error.message }
+    }
+}
+export async function updateOrderStatus(orderId: string, status: string) {
+    try {
+        await prisma.order.update({
+            where: { id: orderId },
+            data: { status }
+        })
+        revalidatePath('/admin/orders')
+        revalidatePath('/dashboard/orders')
+        return { success: true }
+    } catch (error: any) {
+        console.error('Error updating order:', error)
         return { success: false, error: error.message }
     }
 }
