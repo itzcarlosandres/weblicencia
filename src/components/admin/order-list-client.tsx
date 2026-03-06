@@ -80,30 +80,10 @@ export function OrderListClient({ initialOrders }: OrderListProps) {
         }
     }
 
-    const filteredOrders = orders.filter(order =>
-        order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-
     return (
         <div className="space-y-12 animate-in fade-in duration-1000">
-            {/* Dynamic Search Bar */}
-            <div className="relative group max-w-2xl mx-auto">
-                <div className="absolute -inset-1 bg-gradient-to-r from-accent/50 to-blue-500/50 rounded-[2rem] blur opacity-20 group-focus-within:opacity-40 transition duration-1000"></div>
-                <div className="relative">
-                    <Search className="absolute left-7 top-1/2 -translate-y-1/2 w-5 h-5 text-accent" />
-                    <Input
-                        placeholder="BUSCAR EN LA RED DE ÓRDENES..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="bg-black border-white/10 h-20 rounded-[1.8rem] pl-16 pr-8 font-black uppercase tracking-[0.3em] text-xs focus:ring-0 focus:border-accent text-white transition-all placeholder:text-white/10"
-                    />
-                </div>
-            </div>
-
             <div className="grid gap-8">
-                {filteredOrders.map((order) => (
+                {orders.map((order) => (
                     <Card key={order.id} className="border-white/5 bg-[#080808] hover:bg-[#0c0c0c] rounded-[3rem] overflow-hidden group transition-all duration-700 hover:scale-[1.01] hover:shadow-[0_0_50px_rgba(var(--accent-rgb),0.05)] border-l-4 border-l-transparent hover:border-l-accent">
                         <CardContent className="p-0">
                             <div className="grid lg:grid-cols-12 items-center">
@@ -326,10 +306,14 @@ export function OrderListClient({ initialOrders }: OrderListProps) {
                             {/* Footer Action Bar */}
                             <div className="p-10 bg-white/[0.01] border-t border-white/5 flex gap-4">
                                 <Button
+                                    disabled={loadingId === selectedOrder.id || selectedOrder.status === 'PAID'}
                                     onClick={() => handleStatusUpdate(selectedOrder.id, 'PAID')}
                                     className="flex-1 h-20 bg-accent hover:bg-white text-white hover:text-black font-black uppercase tracking-[0.3em] text-[11px] rounded-[1.5rem] transition-all duration-500 border-none shadow-2xl shadow-accent/20"
                                 >
-                                    AUTORIZAR LICENCIAS
+                                    {loadingId === selectedOrder.id ? (
+                                        <Clock className="w-5 h-5 animate-spin mr-3" />
+                                    ) : null}
+                                    {selectedOrder.status === 'PAID' ? 'LICENCIAS ENTREGADAS' : 'AUTORIZAR LICENCIAS'}
                                 </Button>
                                 <Button
                                     variant="outline"
