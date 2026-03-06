@@ -18,7 +18,7 @@ export default async function OrdersPage() {
   const session = await getServerSession(authOptions)
 
   if (!session?.user?.email) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   const user = await prisma.user.findUnique({
@@ -26,7 +26,7 @@ export default async function OrdersPage() {
   })
 
   if (!user) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   const orders = await prisma.order.findMany({

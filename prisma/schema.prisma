@@ -184,3 +184,14 @@ model Coupon {
   @@index([active])
   @@map("coupons")
 }
+
+// App Configuration model
+model AppConfig {
+  id             String   @id @default("global")
+  heroTitle      String   @default("EL ESTÁNDAR DE ÉLITE EN LICENCIAS DIGITALES")
+  heroSubtitle   String   @default("INFRAESTRUCTURA PREMIUM")
+  heroOffersFrom String   @default("29.99")
+  updatedAt      DateTime @updatedAt
+
+  @@map("app_configs")
+}

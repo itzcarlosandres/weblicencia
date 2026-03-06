@@ -13,7 +13,7 @@ export default async function KeysPage() {
   const session = await getServerSession(authOptions)
 
   if (!session?.user?.email) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   return (

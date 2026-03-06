@@ -56,7 +56,7 @@ export function RegisterForm() {
       if (!response.ok) {
         setError(data.message || 'Error al registrarse')
       } else {
-        router.push('/auth/login?registered=true')
+        router.push('/login?registered=true')
       }
     } catch (err) {
       setError('Algo salió mal. Intenta de nuevo.')
@@ -152,7 +152,7 @@ export function RegisterForm() {
 
         <p className="text-center text-sm text-muted-foreground mt-4">
           ¿Ya tienes cuenta?{' '}
-          <Link href="/auth/login" className="text-accent hover:underline">
+          <Link href="/login" className="text-accent hover:underline">
             Inicia sesión aquí
           </Link>
         </p>

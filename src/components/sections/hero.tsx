@@ -5,7 +5,18 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight, ShieldCheck, Sparkles, Zap, Timer } from 'lucide-react'
 
-export function HeroSection() {
+interface HeroProps {
+  config?: {
+    heroTitle: string
+    heroSubtitle: string
+    heroOffersFrom: string
+  } | null
+}
+
+export function HeroSection({ config }: HeroProps) {
+  const title = config?.heroTitle || "EXPLORA EL ADN DIGITAL"
+  const subtitle = config?.heroSubtitle || "Adquiere licencias de software y códigos de juegos con seguridad de grado gubernamental. Entrega instantánea 24/7."
+  const offersFrom = config?.heroOffersFrom || "4.99"
   return (
     <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background">
       {/* Dynamic Background */}
@@ -23,14 +34,12 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter leading-[0.85] text-white uppercase italic">
-                EXPLORA <br />
-                EL ADN <br />
-                <span className="text-accent">DIGITAL</span>
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.85] text-white uppercase italic">
+                {title.split(' ').slice(0, -1).join(' ')} <br />
+                <span className="text-accent">{title.split(' ').slice(-1)}</span>
               </h1>
               <p className="text-lg md:text-xl text-white/40 max-w-lg leading-relaxed font-medium">
-                Adquiere licencias de software y códigos de juegos con seguridad de grado gubernamental.
-                Entrega instantánea 24/7.
+                {subtitle}
               </p>
             </div>
 
@@ -44,7 +53,7 @@ export function HeroSection() {
               </Link>
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.3em] mb-1">Ofertas desde</span>
-                <span className="text-3xl font-bold text-white tracking-tighter underline decoration-white/10 underline-offset-4">$4.99 USD</span>
+                <span className="text-3xl font-bold text-white tracking-tighter underline decoration-white/10 underline-offset-4">${offersFrom} USD</span>
               </div>
             </div>
 

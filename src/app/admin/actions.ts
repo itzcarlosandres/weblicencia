@@ -205,3 +205,24 @@ export async function updateLicenseKey(id: string, data: { key?: string, status?
         return { success: false, error: error.message }
     }
 }
+export async function updateAppConfig(data: { heroTitle?: string, heroSubtitle?: string, heroOffersFrom?: string }) {
+    try {
+        await (prisma as any).appConfig.upsert({
+            where: { id: 'global' },
+            update: data,
+            create: {
+                id: 'global',
+                heroTitle: data.heroTitle || 'EL ESTÁNDAR DE ÉLITE EN LICENCIAS DIGITALES',
+                heroSubtitle: data.heroSubtitle || 'INFRAESTRUCTURA PREMIUM',
+                heroOffersFrom: data.heroOffersFrom || '29.99',
+                ...data
+            }
+        })
+        revalidatePath('/')
+        revalidatePath('/admin/settings')
+        return { success: true }
+    } catch (error: any) {
+        console.error('Error updating config:', error)
+        return { success: false, error: error.message }
+    }
+}
