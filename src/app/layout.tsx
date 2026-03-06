@@ -50,8 +50,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body className={`${montserrat.variable} font-sans bg-[#050505]`}>
+    <html lang="es" suppressHydrationWarning className="dark">
+      <body className={`${montserrat.variable} font-sans bg-background text-foreground`}>
         <AuthProvider>
           <ClientLayout>
             {children}
