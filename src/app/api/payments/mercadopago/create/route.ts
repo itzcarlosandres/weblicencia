@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
     }
 
     try {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
+
         const order = await prisma.order.findUnique({
             where: { id: orderId },
             include: { items: { include: { product: true } } }
@@ -20,7 +22,7 @@ export async function GET(request: NextRequest) {
         })
 
         if (!order || !config?.mercadopagoAccessToken) {
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
         // --- MERCADO PAGO REAL INTEGRATION ---
@@ -38,9 +40,9 @@ export async function GET(request: NextRequest) {
                     currency_id: 'USD'
                 })),
                 back_urls: {
-                    success: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/success`,
-                    failure: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/error`,
-                    pending: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/dashboard/orders`
+                    success: `${baseUrl}/checkout/success`,
+                    failure: `${baseUrl}/checkout/error`,
+                    pending: `${baseUrl}/dashboard/orders`
                 },
                 auto_return: 'approved',
                 external_reference: order.id
@@ -50,14 +52,15 @@ export async function GET(request: NextRequest) {
         const preference = await response.json()
 
         if (preference.init_point) {
-            return NextResponse.redirect(new URL(preference.init_point, request.url))
+            return NextResponse.redirect(preference.init_point)
         } else {
             console.error('MP Preference Error:', preference)
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
     } catch (error) {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
         console.error('MP Setup Error:', error)
-        return NextResponse.redirect(new URL('/checkout/error', request.url))
+        return NextResponse.redirect(new URL('/checkout/error', baseUrl))
     }
 }

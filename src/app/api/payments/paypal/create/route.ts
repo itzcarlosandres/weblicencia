@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
     }
 
     try {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
+
         const order = await prisma.order.findUnique({
             where: { id: orderId }
         })
@@ -19,7 +21,7 @@ export async function GET(request: NextRequest) {
         })
 
         if (!order || !config?.paypalClientId || !config?.paypalSecret) {
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
         // --- PAYPAL REAL INTEGRATION ---
@@ -40,7 +42,7 @@ export async function GET(request: NextRequest) {
 
         if (!accessToken) {
             console.error('PayPal Token Error:', tokenData)
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
         // 2. Create Order
@@ -60,8 +62,8 @@ export async function GET(request: NextRequest) {
                     }
                 }],
                 application_context: {
-                    return_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/success`,
-                    cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/error`
+                    return_url: `${baseUrl}/checkout/success`,
+                    cancel_url: `${baseUrl}/checkout/error`
                 }
             })
         })
@@ -70,14 +72,15 @@ export async function GET(request: NextRequest) {
         const approveLink = paypalOrder.links?.find((l: any) => l.rel === 'approve')?.href
 
         if (approveLink) {
-            return NextResponse.redirect(new URL(approveLink, request.url))
+            return NextResponse.redirect(approveLink)
         } else {
             console.error('PayPal Order Error:', paypalOrder)
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
     } catch (error) {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
         console.error('PayPal Setup Error:', error)
-        return NextResponse.redirect(new URL('/checkout/error', request.url))
+        return NextResponse.redirect(new URL('/checkout/error', baseUrl))
     }
 }
