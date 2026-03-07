@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
     }
 
     try {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
+
         const order = await prisma.order.findUnique({
             where: { id: orderId }
         })
@@ -19,7 +21,7 @@ export async function GET(request: NextRequest) {
         })
 
         if (!order || !config?.coinpalApiKey || !config?.coinpalMerchantId) {
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
         // --- COINPAL REAL INTEGRATION ---
@@ -36,22 +38,23 @@ export async function GET(request: NextRequest) {
                 orderId: order.id,
                 amount: order.total,
                 currency: 'USD',
-                successUrl: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/success`,
-                cancelUrl: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/checkout/error`
+                successUrl: `${baseUrl}/checkout/success`,
+                cancelUrl: `${baseUrl}/checkout/error`
             })
         })
 
         const result = await response.json()
 
         if (result.paymentUrl) {
-            return NextResponse.redirect(new URL(result.paymentUrl, request.url))
+            return NextResponse.redirect(result.paymentUrl)
         } else {
             console.error('CoinPal API Error:', result)
-            return NextResponse.redirect(new URL('/checkout/error', request.url))
+            return NextResponse.redirect(new URL('/checkout/error', baseUrl))
         }
 
     } catch (error) {
+        const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`
         console.error('CoinPal Setup Error:', error)
-        return NextResponse.redirect(new URL('/checkout/error', request.url))
+        return NextResponse.redirect(new URL('/checkout/error', baseUrl))
     }
 }
