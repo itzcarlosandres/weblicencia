@@ -7,6 +7,7 @@ import { Minus, Plus, Check, Loader2, ShoppingCart, Monitor, ShieldCheck, Zap, A
 import { ProductDetailClient } from '@/components/product-detail-client'
 import { prisma } from '@/lib/prisma'
 import { formatPrice } from '@/lib/utils'
+import { ExpandableText } from '@/components/expandable-text'
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const product = await prisma.product.findFirst({
@@ -124,9 +125,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </span>
             </div>
 
-            <p className="text-xl text-white/50 leading-relaxed font-medium">
-              {product.description}
-            </p>
+            <ExpandableText text={product.description || ''} maxLines={2} />
 
             <div className="grid grid-cols-1 gap-6 pt-6">
               <div className="flex items-start gap-4 p-6 rounded-3xl bg-white/[0.02] border border-white/5 group hover:border-accent/40 transition-all">
