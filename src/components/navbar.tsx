@@ -6,11 +6,18 @@ import { Button } from '@/components/ui/button'
 import { ShoppingCart, User, LogOut, Menu, Shield, Box, Zap, Key, Monitor, Database, Search } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import { useCart } from '@/hooks/use-cart'
 
 export function Navbar() {
   const { data: session } = useSession()
+  const { cart } = useCart()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
+
+  useEffect(() => {
+    setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0))
+  }, [cart])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,8 +87,13 @@ export function Navbar() {
           {/* Right Side */}
           <div className="flex items-center space-x-3">
             <Link href="/cart">
-              <Button size="icon" variant="ghost" className="text-white/60 hover:text-accent hover:bg-white/5 rounded-2xl w-11 h-11 border border-transparent hover:border-white/10 transition-all">
+              <Button size="icon" variant="ghost" className="relative text-white/60 hover:text-accent hover:bg-white/5 rounded-2xl w-11 h-11 border border-transparent hover:border-white/10 transition-all">
                 <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[10px] font-black text-black animate-in fade-in zoom-in duration-300 shadow-[0_0_15px_rgba(var(--accent-rgb),0.4)]">
+                    {cartCount}
+                  </span>
+                )}
               </Button>
             </Link>
 

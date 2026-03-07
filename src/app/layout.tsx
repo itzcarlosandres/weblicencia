@@ -44,6 +44,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { CartProvider } from '@/providers/cart-provider'
+
 export default function RootLayout({
   children,
 }: {
@@ -53,10 +55,12 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning className="dark">
       <body className={`${montserrat.variable} font-sans bg-background text-foreground`}>
         <AuthProvider>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-          <Toaster />
+          <CartProvider>
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+            <Toaster />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
